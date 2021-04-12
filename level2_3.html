@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>level2_3</title>
+</head>
+<body>
+    <script>
+        for (var i = 0; i < 5; i++) {
+            ((i) => {
+                setTimeout(function () {
+                    console.log(new Date, i);
+                }, 1000*i);
+            })(i)
+        }
+        if(i!=5){//题目中并未说明输出5，此处为判断为5时是否可以输出
+            console.log(new Date, i);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>level3</title>
+</head>
+<body>
+    <script>
+        function Student(name) {
+            function People(name) {
+                this.list = [];//创建任务队列，保存任务，利用数组存储
+                let People = () => {
+                    console.log("Hi! This is", name);
+                    this.next();//执行下一个任务
+                }
+                this.list.push(People);//将People任务加入到任务队列的尾部
+                setTimeout(() => {
+                    this.next();//等任务队列运行完成后在进行此处this.next()操作
+                }, 0)
+                return this;//链式调用
+            }
+            People.prototype.sleep = function (time) {
+                let that = this;//防止this的指向发生偏转
+                let sleep = function () {
+                    setTimeout(function () {
+                        console.log("Wake up after", time);
+                        that.next();//执行下一个任务
+                    }, time * 1000)
+                }
+                this.list.push(sleep);//将sleep任务加入到任务队列的尾部
+                return this;//链式调用
+            }
+            People.prototype.sleepFirst = function (time) {
+                let that = this;//防止this的指向发生偏转
+                let sleepFirst = function () {
+                    setTimeout(function () {
+                        console.log("Wake up after", time);
+                        that.next();//执行下一个任务
+                    }, time * 1000)
+                }
+                this.list.unshift(sleepFirst);//将sleepFirst任务加入到任务队列的首部
+                return this;//链式调用
+            }
+            People.prototype.study = function (course) {
+                let that = this;//防止this的指向发生偏转
+                let study = function () {
+                    console.log("Study", course, "~");
+                    that.next();//执行下一个任务
+                }
+                this.list.push(study);//将study任务加入到任务队列的尾部
+                return this;//链式调用
+            }
+            People.prototype.next = function () {
+                let task = this.list.shift();//查找是否还有任务
+                task && task();//有则执行
+            }
+            return new People(name)
+        }
+        console.log("请在源代码中将链式调用处的注释删除再重新保存运行，谢谢！");
+        //Student('fxy');
+        //Student('fxy').sleep(3).study('javascript');
+        //Student('fxy').study('javascript').study('Vue');
+        Student('fxy').sleepFirst(5).study('Ajax');
+    </script>
+</body>
+</html>
